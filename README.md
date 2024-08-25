@@ -22,7 +22,7 @@ React 및 TypeScript로 작성된 웹 애플리케이션입니다. 구매 빈도
 가격대별 구매 빈도를 바 차트로 시각화한 페이지입니다.
 
 ### 3. Customer
-![고객 목록 페이지](./apps/frontend/src/assets/customer.png)
+![고객 목록 페이지](./apps/frontend/src/assets/customers.png)
 검색 및 정렬 기능이 있는 고객 목록 페이지입니다.
 
 ## 기술 스택
@@ -40,6 +40,7 @@ yarn start-client
 ```
 
 ## 설치 및 실행
+```bash
 /project-root
 ├── /src
 │   ├── /api
@@ -48,3 +49,4 @@ yarn start-client
 │   ├── /pages
 │   └── types.ts
 └── package.json
+```
