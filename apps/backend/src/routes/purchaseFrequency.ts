@@ -4,11 +4,7 @@ import { getPurchases, getProducts } from '../data'
 const router = new Router()
 
 router.get('/api/purchase-frequency', async (ctx) => {
-  try {
-    if (Math.random() <= 1) {
-      throw new Error('Intentional error occurred')
-    }
-
+  try {  
     const { from, to } = ctx.query
 
     if ((from && !to) || (!from && to)) {
@@ -83,6 +79,8 @@ router.get('/api/purchase-frequency', async (ctx) => {
 
     ctx.body = frequency
   } catch (error) {
+    console.log(ctx,'ctx');
+    
     ctx.status = 500
     ctx.body = { error: `An error occurred while processing your request. ${error}` }
   }
