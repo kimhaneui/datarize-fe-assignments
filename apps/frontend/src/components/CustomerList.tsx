@@ -1,59 +1,63 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { fetchCustomers } from '../api/api';
-import { Customer } from '../types';
-import { Modal, Input, Select, Table, Spin } from 'antd';
-import CustomerDetail from './CustomerDetail';
+import React, { useState, useEffect, useRef } from 'react'
+// library
+import { Modal, Input, Select, Table, Spin } from 'antd'
+// component
+import CustomerDetail from './CustomerDetail'
+// types
+import { Customer } from '../types'
+// api
+import { fetchCustomers } from '../api/api'
 
-const { Option } = Select;
-const { Search } = Input;
+const { Option } = Select
+const { Search } = Input
 
 const CustomerList: React.FC = () => {
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'asc' | 'desc'>('asc');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const debounceTimeout = useRef<number | undefined>(undefined);
+  const [customers, setCustomers] = useState<Customer[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortBy, setSortBy] = useState<'asc' | 'desc'>('asc')
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const debounceTimeout = useRef<number | undefined>(undefined)
 
   const debouncedFetchData = (query: string, sort: 'asc' | 'desc') => {
     if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
+      clearTimeout(debounceTimeout.current)
     }
 
     debounceTimeout.current = window.setTimeout(async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        const response = await fetchCustomers(query, sort);
-        setCustomers(response);
+        const response = await fetchCustomers(query, sort)
+        setCustomers(response)
       } catch (error) {
-        console.error('Error fetching customers:', error);
-        window.alert('고객 데이터를 불러오는 데 실패했습니다.');
+        console.error('Error fetching customers:', error)
+        window.alert('고객 데이터를 불러오는 데 실패했습니다.')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    }, 500);
-  };
+    }, 500)
+  }
 
   useEffect(() => {
-    debouncedFetchData(searchQuery, sortBy);
+    debouncedFetchData(searchQuery, sortBy)
 
     return () => {
       if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
+        clearTimeout(debounceTimeout.current)
       }
-    };
-  }, [searchQuery, sortBy]);
+    }
+  }, [searchQuery, sortBy])
 
   const handleCustomerClick = (customerId: string) => {
-    setSelectedCustomerId(customerId);
-    setIsModalVisible(true);
-  };
+    setSelectedCustomerId(customerId)
+    setIsModalVisible(true)
+  }
 
   const handleModalClose = () => {
-    setIsModalVisible(false);
-    setSelectedCustomerId(null);
-  };
+    setIsModalVisible(false)
+    setSelectedCustomerId(null)
+  }
 
   const columns = [
     { title: 'ID', dataIndex: 'id', key: 'id' },
@@ -65,7 +69,7 @@ const CustomerList: React.FC = () => {
       key: 'totalAmount',
       render: (amount: number) => `${amount.toLocaleString()}원`,
     },
-  ];
+  ]
 
   return (
     <div className="margin-container">
@@ -101,16 +105,11 @@ const CustomerList: React.FC = () => {
         />
       )}
 
-      <Modal
-        title="고객 상세 정보"
-        visible={isModalVisible}
-        onCancel={handleModalClose}
-        footer={null}
-      >
+      <Modal title="고객 상세 정보" visible={isModalVisible} onCancel={handleModalClose} footer={null}>
         {selectedCustomerId && <CustomerDetail customerId={selectedCustomerId} />}
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default CustomerList;
+export default CustomerList

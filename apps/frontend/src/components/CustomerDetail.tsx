@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { fetchCustomerPurchases } from '../api/api';
-import { CustomerDetailProps, Purchase } from '../types';
-import { List, Avatar } from 'antd';
+import React, { useState, useEffect } from 'react'
+// library
+import { List, Avatar } from 'antd'
+// types
+import { CustomerDetailProps, Purchase } from '../types'
+// api
+import { fetchCustomerPurchases } from '../api/api'
 
 const CustomerDetail: React.FC<CustomerDetailProps> = ({ customerId }) => {
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [purchases, setPurchases] = useState<Purchase[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchCustomerPurchases(customerId);
-        setPurchases(response);
+        const response = await fetchCustomerPurchases(customerId)
+        setPurchases(response)
       } catch (error) {
-        console.error('Error fetching customer purchases:', error);
+        console.error('Error fetching customer purchases:', error)
       }
-    };
+    }
 
-    fetchData();
-  }, [customerId]);
+    fetchData()
+  }, [customerId])
 
   return (
     <div>
@@ -30,18 +33,18 @@ const CustomerDetail: React.FC<CustomerDetailProps> = ({ customerId }) => {
             <List.Item.Meta
               avatar={<Avatar src={purchase.imgSrc} alt={purchase.product} size={80} shape="square" />}
               title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{purchase.product}</span>}
-              description={(
+              description={
                 <div>
                   <p>구매 날짜: {purchase.date}</p>
                   <p>가격: {purchase.price.toLocaleString()}원</p>
                 </div>
-              )}
+              }
             />
           </List.Item>
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CustomerDetail;
+export default CustomerDetail
