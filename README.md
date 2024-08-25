@@ -56,7 +56,7 @@ yarn start-client
 - `sortBy`: 정렬 기준 (가능한 값: `asc`, `desc` - 구매 금액 순 정렬)
 - `name`: 이름 검색
 
-### `GET /api/customer/{id}/purchases`
+### `GET /api/customers/{id}/purchases`
 특정 고객의 구매 내역을 반환합니다.
 
 

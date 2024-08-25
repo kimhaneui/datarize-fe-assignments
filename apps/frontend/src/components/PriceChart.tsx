@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Bar } from 'react-chartjs-2'
 // library
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
@@ -23,22 +23,22 @@ const PriceChart: React.FC = () => {
   const [endDate, setEndDate] = useState<Date | null>(new Date())
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const response = await fetchPurchaseFrequency(startDate, endDate)
-        setData(response)
-      } catch (error) {
-        console.error('Error fetching purchase frequency data', error)
-        window.alert('데이터를 불러오는 데 실패했습니다.')
-      } finally {
-        setLoading(false)
-      }
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    try {
+      const response = await fetchPurchaseFrequency(startDate, endDate)
+      setData(response)
+    } catch (error) {
+      console.error('Error fetching purchase frequency data', error)
+      window.alert('데이터를 불러오는 데 실패했습니다.')
+    } finally {
+      setLoading(false)
     }
-
-    fetchData()
   }, [startDate, endDate])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const chartData: ChartData<'bar'> = {
     labels: data.map((item) => {

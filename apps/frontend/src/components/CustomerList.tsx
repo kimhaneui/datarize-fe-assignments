@@ -73,17 +73,16 @@ const CustomerList: React.FC = () => {
 
   return (
     <div className="margin-container">
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>고객 목록</h2>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+      <h2 className="customer-list-title">고객 목록</h2>
+      <div className="customer-list-controls">
         <Search
           placeholder="고객 이름 검색"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onSearch={() => {}}
-          style={{ width: '60%' }}
+          className="customer-list-search"
         />
-        <Select value={sortBy} onChange={(value) => setSortBy(value)} style={{ width: '30%' }}>
+        <Select value={sortBy} onChange={(value) => setSortBy(value)} className="customer-list-select">
           <Option value="asc">오름차순</Option>
           <Option value="desc">내림차순</Option>
         </Select>

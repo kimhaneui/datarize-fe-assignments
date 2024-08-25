@@ -9,6 +9,29 @@
   width: 80%;
 }
 
+.customer-list-container {
+  padding: 20px;
+}
+
+.customer-list-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.customer-list-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.customer-list-search {
+  width: 60%;
+}
+
+.customer-list-select {
+  width: 30%;
+}
+
 .container {
   font-family: Arial, sans-serif;
   padding: 20px;
